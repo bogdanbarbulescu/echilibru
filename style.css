@@ -8,14 +8,15 @@ body {
 
 /* Color Variables (Light Theme Defaults) */
 :root {
-    --body-bg: #f8f9fa;
-    --text-color: #212529;
+    --body-bg: #f0f2f5; /* Soft background */
+    --text-color: #343a40;
     --card-bg: #ffffff;
-    --card-border: #dee2e6;
-    --navbar-bg: #e9ecef;
-    --navbar-text: #212529;
-    --primary-color: #0d6efd; /* Bootstrap default blue */
-    --secondary-color: #6c757d; /* Bootstrap default gray */
+    --card-border: #e9ecef;
+    --navbar-bg: #ffffff; /* White navbar */
+    --navbar-text: #343a40;
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --info-color: #0dcaf0; /* Bootstrap info */
     --score-selected-bg: var(--primary-color);
     --score-selected-color: #fff;
     --score-default-bg: transparent;
@@ -23,30 +24,39 @@ body {
     --modal-content-bg: #fff;
     --modal-header-border: #dee2e6;
     --modal-footer-border: #dee2e6;
+    --chart-grid-color: rgba(0, 0, 0, 0.1);
+    --chart-tick-color: rgba(0, 0, 0, 0.8);
+    --chart-tooltip-bg: #fff;
+    --chart-tooltip-text: #000;
 }
 
 /* Dark Mode Styles */
 body.dark-mode {
-    --body-bg: #212529;
-    --text-color: #f8f9fa;
+    --body-bg: #212529; /* Dark background */
+    --text-color: #dee2e6;
     --card-bg: #343a40;
     --card-border: #495057;
-    --navbar-bg: #495057;
-    --navbar-text: #f8f9fa;
-    --primary-color: #0dcaf0; /* Bootstrap info blue */
-    --secondary-color: #adb5bd; /* Bootstrap secondary light */
-     --score-selected-bg: var(--primary-color);
-    --score-selected-color: #212529; /* Dark text for light score bg */
+    --navbar-bg: #343a40; /* Dark navbar */
+    --navbar-text: #dee2e6;
+    --primary-color: #0dcaf0; /* Light blue */
+    --secondary-color: #adb5bd;
+    --info-color: #ffc107; /* Bootstrap warning/yellow */
+    --score-selected-bg: var(--primary-color);
+    --score-selected-color: #212529;
     --score-default-bg: transparent;
-    --score-default-border: #6c757d; /* Lighter border */
+    --score-default-border: #6c757d;
     --modal-content-bg: #343a40;
     --modal-header-border: #495057;
     --modal-footer-border: #495057;
+     --chart-grid-color: rgba(255, 255, 255, 0.1);
+    --chart-tick-color: rgba(255, 255, 255, 0.8);
+     --chart-tooltip-bg: #495057; /* Darker tooltip */
+    --chart-tooltip-text: #dee2e6;
 }
 
 /* Apply variables */
 .navbar {
-    background-color: var(--navbar-bg) !important;
+    background-color: var(--navbar-bg) !important; /* Use !important to override Bootstrap */
     color: var(--navbar-text);
 }
 .navbar .navbar-brand,
@@ -58,19 +68,36 @@ body.dark-mode {
 .card {
     background-color: var(--card-bg);
     border-color: var(--card-border);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Animation for hover */
 }
+
+/* Card Hover Animation */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+body.dark-mode .card:hover {
+     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.05);
+}
+
 
 /* Score Selector Styling */
 .score-selector .btn {
-    width: 30px; /* Make score buttons fixed width */
-    margin: 0 2px; /* Add small space between buttons */
-    padding: .375rem .75rem; /* Adjust padding */
-    border-radius: .25rem; /* Bootstrap default */
+    width: 35px; /* Slightly wider buttons */
+    margin: 0 2px;
+    padding: .4rem .8rem;
+    border-radius: .25rem;
     border: 1px solid var(--score-default-border);
     background-color: var(--score-default-bg);
-    color: var(--text-color); /* Default text color */
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    color: var(--text-color);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.1s ease-in-out; /* Animation for selection */
+     font-weight: bold;
 }
+
+.score-selector .btn:active {
+    transform: scale(0.95); /* Subtle press effect */
+}
+
 
 .score-selector .btn.selected {
     background-color: var(--score-selected-bg);
@@ -78,31 +105,44 @@ body.dark-mode {
     border-color: var(--score-selected-bg);
 }
 
-.score-selector .btn:hover {
-    opacity: 0.8;
-}
-
-/* Date Picker Styling (optional) */
-#datePicker {
+/* Date Picker Styling */
+#datePicker,
+#avgStartDatePicker,
+#avgEndDatePicker {
     background-color: var(--card-bg);
     color: var(--text-color);
     border-color: var(--card-border);
 }
 
-/* Save Button Styling */
+/* Save Button Animation */
 #saveDayBtn {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
-}
-#saveDayBtn:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    opacity: 0.9;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
 }
 
-/* Chart Container */
-#scoreChart {
-    max-height: 300px; /* Limit chart height */
+#saveDayBtn:active {
+     transform: scale(0.98);
+}
+
+#saveDayBtn.btn-success {
+     background-color: #28a745 !important; /* Bootstrap success green */
+    border-color: #28a745 !important;
+     animation: pulse-save 0.5s ease;
+}
+
+@keyframes pulse-save {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+
+/* Chart Containers (Adjust height if needed) */
+#weeklyLineChart,
+#dailyRadarChart,
+#averageBarChart {
+     max-height: 350px; /* Limit chart height */
 }
 
 /* Modal Styling */
@@ -120,17 +160,20 @@ body.dark-mode {
 }
 
 .modal .btn-close {
-    filter: invert(var(--bs-btn-close-white-filter)); /* Make close button visible in dark mode */
+    filter: invert(var(--bs-btn-close-white-filter, 0)); /* Default no invert */
 }
-
-/* Custom filter variable for dark mode close button */
 body.dark-mode .modal .btn-close {
     --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%); /* Makes it white/bright */
 }
 
+/* Fade Animation */
+.fade-element {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
 
-/* Adjust margin for dark mode toggle label */
-.form-check-label i {
-    vertical-align: middle;
+.fade-element.faded {
+    opacity: 0.3; /* Reduce opacity when faded */
+    pointer-events: none; /* Disable clicks during fade */
 }
 
