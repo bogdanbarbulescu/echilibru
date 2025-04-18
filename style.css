@@ -1,0 +1,136 @@
+/* Basic Body Styling */
+body {
+    font-family: sans-serif;
+    background-color: var(--body-bg);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Color Variables (Light Theme Defaults) */
+:root {
+    --body-bg: #f8f9fa;
+    --text-color: #212529;
+    --card-bg: #ffffff;
+    --card-border: #dee2e6;
+    --navbar-bg: #e9ecef;
+    --navbar-text: #212529;
+    --primary-color: #0d6efd; /* Bootstrap default blue */
+    --secondary-color: #6c757d; /* Bootstrap default gray */
+    --score-selected-bg: var(--primary-color);
+    --score-selected-color: #fff;
+    --score-default-bg: transparent;
+    --score-default-border: #ced4da;
+    --modal-content-bg: #fff;
+    --modal-header-border: #dee2e6;
+    --modal-footer-border: #dee2e6;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    --body-bg: #212529;
+    --text-color: #f8f9fa;
+    --card-bg: #343a40;
+    --card-border: #495057;
+    --navbar-bg: #495057;
+    --navbar-text: #f8f9fa;
+    --primary-color: #0dcaf0; /* Bootstrap info blue */
+    --secondary-color: #adb5bd; /* Bootstrap secondary light */
+     --score-selected-bg: var(--primary-color);
+    --score-selected-color: #212529; /* Dark text for light score bg */
+    --score-default-bg: transparent;
+    --score-default-border: #6c757d; /* Lighter border */
+    --modal-content-bg: #343a40;
+    --modal-header-border: #495057;
+    --modal-footer-border: #495057;
+}
+
+/* Apply variables */
+.navbar {
+    background-color: var(--navbar-bg) !important;
+    color: var(--navbar-text);
+}
+.navbar .navbar-brand,
+.navbar .form-check-label i {
+     color: var(--navbar-text);
+}
+
+
+.card {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+}
+
+/* Score Selector Styling */
+.score-selector .btn {
+    width: 30px; /* Make score buttons fixed width */
+    margin: 0 2px; /* Add small space between buttons */
+    padding: .375rem .75rem; /* Adjust padding */
+    border-radius: .25rem; /* Bootstrap default */
+    border: 1px solid var(--score-default-border);
+    background-color: var(--score-default-bg);
+    color: var(--text-color); /* Default text color */
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.score-selector .btn.selected {
+    background-color: var(--score-selected-bg);
+    color: var(--score-selected-color);
+    border-color: var(--score-selected-bg);
+}
+
+.score-selector .btn:hover {
+    opacity: 0.8;
+}
+
+/* Date Picker Styling (optional) */
+#datePicker {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--card-border);
+}
+
+/* Save Button Styling */
+#saveDayBtn {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+#saveDayBtn:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    opacity: 0.9;
+}
+
+/* Chart Container */
+#scoreChart {
+    max-height: 300px; /* Limit chart height */
+}
+
+/* Modal Styling */
+.modal-content {
+     background-color: var(--modal-content-bg);
+     color: var(--text-color);
+}
+
+.modal-header {
+     border-bottom-color: var(--modal-header-border);
+}
+
+.modal-footer {
+    border-top-color: var(--modal-footer-border);
+}
+
+.modal .btn-close {
+    filter: invert(var(--bs-btn-close-white-filter)); /* Make close button visible in dark mode */
+}
+
+/* Custom filter variable for dark mode close button */
+body.dark-mode .modal .btn-close {
+    --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%); /* Makes it white/bright */
+}
+
+
+/* Adjust margin for dark mode toggle label */
+.form-check-label i {
+    vertical-align: middle;
+}
+
